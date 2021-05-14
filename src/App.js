@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
+import styled from 'styled-components/macro';
 import PokemonContainer from './PokemonContainer';
 import Favorite from './Favorite';
+import Navigation from './Navigation';
+import Home from './Home';
 
 function App() {
   const [pokemon, setPokemon] = useState([]);
@@ -12,14 +15,22 @@ function App() {
   }, []);
 
   return (
-    <div>
-      <nav>
-        <ul></ul>
-      </nav>
-      <h1>Pokemon World</h1>
+    <MainContainer>
+      <Headline>Pokemon World</Headline>
+      <Navigation />
+      <Home />
       <PokemonContainer characters={pokemon} />
-    </div>
+    </MainContainer>
   );
 }
 
 export default App;
+
+const Headline = styled.h1`
+  text-shadow: 0 0 0.7rem #00f, 0 0 0.7rem #00f;
+  color: yellow;
+`;
+
+const MainContainer = styled.div`
+  text-align: center;
+`;

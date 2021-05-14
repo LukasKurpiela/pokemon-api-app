@@ -1,3 +1,5 @@
+import styled from 'styled-components/macro';
+
 export default function PokemonContainer({ characters }) {
   function getPictures(index) {
     const link = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${
