@@ -10,9 +10,17 @@ export default function Home() {
   return (
     <section>
       <article>
-        <h2>Welcome!</h2>
-        <PikachuImage src={Pikachu} alt="Flying Pikachu with Ballons" />
-        <EichImage src={Eich} alt="Pic of Prof. Eich" />
+        <H2>Welcome!</H2>
+        <EichWrapper>
+          <PikachuImage src={Pikachu} alt="Flying Pikachu with Ballons" />
+          <EichImage src={Eich} alt="Pic of Prof. Eich"></EichImage>
+        </EichWrapper>
+        <IntroText>
+          Hello there! Welcome to the world of pokémon! My name is Prof. Eich!
+          People call me the pokémon Prof! This world is inhabited by creatures
+          called pokémon! For some people, pokémon are pets. Others use them for
+          fights. Myself...I study pokémon as a profession.
+        </IntroText>
       </article>
 
       <MapImageWrapper>
@@ -41,17 +49,36 @@ const MapImageWrapper = styled.article`
   flex-wrap: wrap;
   gap: 1rem;
   justify-content: center;
-  padding: 0.3rem;
+  padding: 0 2rem;
+  margin-top: 3rem;
+  padding-bottom: 2rem;
 `;
 
 const PikachuImage = styled.img`
-  top: 16rem;
-  left: 5rem;
+  top: 90px;
+  left: 50%;
   position: absolute;
+  margin-left: -110px;
   width: 7rem;
   z-index: 10;
 `;
 
 const EichImage = styled.img`
+  left: 50%;
+  margin-left: -170px;
+  top: 50%;
+  position: absolute;
+`;
+
+const H2 = styled.h2`
+  margin-bottom: 1rem;
+`;
+
+const EichWrapper = styled.div`
   position: relative;
+`;
+
+const IntroText = styled.p`
+  margin-top: 30rem;
+  padding: 0 3rem;
 `;
