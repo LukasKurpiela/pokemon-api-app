@@ -3,13 +3,13 @@ import styled from 'styled-components/macro';
 import PokemonContainer from './PokemonContainer';
 import Navigation from './Navigation';
 import Home from './Home';
-import Info from './Info';
 
 function App() {
   const [pokemon, setPokemon] = useState([]);
   const [activePage, setActivePage] = useState('Home');
   const [likedPokemon, setLikedPokemon] = useState([]);
   const [typeInfo, setTypeInfo] = useState([]);
+
   /* const Home = () => <h1>Home</h1>; */
 
   useEffect(() => {
@@ -65,6 +65,7 @@ function App() {
             characters={pokemon}
             onToggle={toggleFavorite}
             loadInfo={fetchTypeInfo}
+            changePage={setActivePage}
           />
         );
       case 'Favorite':
@@ -73,8 +74,10 @@ function App() {
             characters={likedPokemon}
             onToggle={toggleFavorite}
             loadInfo={fetchTypeInfo}
+            changePage={setActivePage}
           />
         );
+
       default:
         return <Home />;
     }
@@ -88,12 +91,6 @@ function App() {
     </MainContainer>
   );
 }
-
-/* {activePage === 'Home' ? (
-  <Home />
-) : (
-  <PokemonContainer characters={pokemon} />
-)} */
 
 export default App;
 

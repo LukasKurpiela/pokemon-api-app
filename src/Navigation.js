@@ -1,4 +1,5 @@
 import styled from 'styled-components/macro';
+import PropTypes from 'prop-types';
 
 export default function Navigation({ onChangeToPage }) {
   return (
@@ -18,6 +19,10 @@ export default function Navigation({ onChangeToPage }) {
     </ButtonWrapper>
   );
 }
+
+Navigation.propTypes = {
+  onChangeToPage: PropTypes.func,
+};
 
 const ButtonWrapper = styled.div`
   display: flex;

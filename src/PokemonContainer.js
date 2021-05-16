@@ -1,34 +1,76 @@
 import styled from 'styled-components/macro';
-import Pokedex from './image/pokedex.png';
+import { useState } from 'react';
+import Modal from 'react-modal';
+import PropTypes from 'prop-types';
 
 export default function PokemonContainer({ characters, onToggle, loadInfo }) {
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+
   function getPictures(curryId) {
     const link = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${curryId}.png`;
     return link;
   }
 
+  function toggleModal() {
+    setModalIsOpen(!modalIsOpen);
+  }
+
   return (
     <CardWrapper>
-      {characters.map((character, index) => (
+      {characters.map((character) => (
         <Card>
           <h2>
-            #{index + 1 + ' '}
+            #{character.id}{' '}
             {character.name.charAt(0).toUpperCase() + character.name.slice(1)}
           </h2>
           <PokeImage src={getPictures(character.id)} />
           <LikeButton onClick={() => onToggle(character)}>
             {character.isFavorite ? 'Free again 🥲' : 'I like!😍'}
           </LikeButton>
-          {/* <InfoButton onClick={() => showModal()}>i</InfoButton> */}
+          <InfoButton onClick={toggleModal}>i</InfoButton>
+          <Modal
+            isOpen={modalIsOpen}
+            style={{
+              overlay: {
+                backgroundColor: 'transparent',
+                position: 'fixed',
+                left: '50%',
+                top: '20%',
+                bottom: '50%',
+                marginLeft: '-250px',
+                width: '500px',
+              },
+              // display: 'block',
+              content: {
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+              },
+            }}
+          >
+            <Description>
+              <CloseButton onClick={toggleModal}>x</CloseButton>
+              <ModalDescription>
+                <h4>
+                  #{character.id}{' '}
+                  {character.name.charAt(0).toUpperCase() +
+                    character.name.slice(1)}
+                </h4>
+                Description:{loadInfo(character.id)}
+              </ModalDescription>
+            </Description>
+          </Modal>
         </Card>
       ))}
     </CardWrapper>
   );
 }
 
-{
-  /* <PokedexImage src={Pokedex} alt="Image of Pokedex" /> */
-}
+PokemonContainer.propTypes = {
+  characters: PropTypes.arrayOf(PropTypes.object),
+  onToggle: PropTypes.func,
+  loadInfo: PropTypes.func,
+};
 
 const CardWrapper = styled.div`
   display: flex;
@@ -39,8 +81,8 @@ const CardWrapper = styled.div`
 `;
 
 const Card = styled.article`
-  background-image: linear-gradient(to bottom right, #ffe259, #ffa751);
   align-items: center;
+  background-image: linear-gradient(to bottom right, #ffe259, #ffa751);
   border: 2px solid black;
   border-radius: 1rem;
   box-shadow: 3px 5px 5px grey;
@@ -65,12 +107,12 @@ const InfoButton = styled.button`
   border-radius: 50%;
   box-shadow: 2px 2px 3px grey;
   height: 1.5rem;
-
   padding: 0 0.3rem;
-  bottom: 0.5rem;
-  cursor: pointer;
+
   position: absolute;
+  bottom: 0.5rem;
   right: 0.4rem;
+  cursor: pointer;
 `;
 
 const PokeImage = styled.img`
@@ -80,14 +122,27 @@ const PokeImage = styled.img`
   }
 `;
 
-const PokedexImage = styled.img`
-  bottom: 0.5rem;
-  border-radius: 0.6rem;
-  box-shadow: 3px 5px 5px grey;
-  background: lightgrey;
-  cursor: pointer;
-  padding: 0.3rem 0;
+const Description = styled.div`
+  background: white;
+  padding: 1rem;
+  max-width: 400px;
+  min-height: 200px;
+`;
+
+const CloseButton = styled.button`
+  background-color: lightgrey;
+  border: lightgrey solid 1px;
+  border-radius: 50%;
+  box-shadow: 2px 2px 3px grey;
+  height: 1.5rem;
+  padding: 0 0.3rem;
+
   position: absolute;
   right: 0.4rem;
-  width: 2.2rem;
+  top: 0.5rem;
+  cursor: pointer;
+`;
+
+const ModalDescription = styled.p`
+  padding-top: 1rem;
 `;
