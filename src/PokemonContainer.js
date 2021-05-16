@@ -1,7 +1,7 @@
 import styled from 'styled-components/macro';
 import Pokedex from './image/pokedex.png';
 
-export default function PokemonContainer({ characters, onToggle }) {
+export default function PokemonContainer({ characters, onToggle, loadInfo }) {
   function getPictures(curryId) {
     const link = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${curryId}.png`;
     return link;
@@ -19,7 +19,7 @@ export default function PokemonContainer({ characters, onToggle }) {
           <LikeButton onClick={() => onToggle(character)}>
             {character.isFavorite ? 'Free again 🥲' : 'I like!😍'}
           </LikeButton>
-          <InfoButton>i</InfoButton>
+          {/* <InfoButton onClick={() => showModal()}>i</InfoButton> */}
         </Card>
       ))}
     </CardWrapper>

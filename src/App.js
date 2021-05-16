@@ -9,6 +9,7 @@ function App() {
   const [pokemon, setPokemon] = useState([]);
   const [activePage, setActivePage] = useState('Home');
   const [likedPokemon, setLikedPokemon] = useState([]);
+  const [typeInfo, setTypeInfo] = useState([]);
   /* const Home = () => <h1>Home</h1>; */
 
   useEffect(() => {
@@ -24,6 +25,12 @@ function App() {
         )
       );
   }, []);
+
+  function fetchTypeInfo(id) {
+    fetch(`https://pokeapi.co/api/v2/pokemon-species/${id}`)
+      .then((result) => result.json())
+      .then((data) => setTypeInfo(data.flavor_text_entries[0].flavor_text));
+  }
 
   //Dafür da
   useEffect(() => {
@@ -54,13 +61,18 @@ function App() {
         return <Home />;
       case 'PokemonContainer':
         return (
-          <PokemonContainer characters={pokemon} onToggle={toggleFavorite} />
+          <PokemonContainer
+            characters={pokemon}
+            onToggle={toggleFavorite}
+            loadInfo={fetchTypeInfo}
+          />
         );
       case 'Favorite':
         return (
           <PokemonContainer
             characters={likedPokemon}
             onToggle={toggleFavorite}
+            loadInfo={fetchTypeInfo}
           />
         );
       default:
