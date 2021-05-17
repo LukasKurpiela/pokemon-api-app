@@ -3,7 +3,12 @@ import { useState } from 'react';
 import Modal from 'react-modal';
 import PropTypes from 'prop-types';
 
-export default function PokemonContainer({ characters, onToggle, loadInfo }) {
+export default function PokemonContainer({
+  characters,
+  onToggle,
+  loadInfo,
+  setCharacters,
+}) {
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
   function getPictures(curryId) {
@@ -15,8 +20,20 @@ export default function PokemonContainer({ characters, onToggle, loadInfo }) {
     setModalIsOpen(!modalIsOpen);
   }
 
+  function searchPokemon(value) {
+    const filtered = characters.filter((character) =>
+      character.name.includes(value)
+    );
+    setCharacters(filtered);
+  }
+
   return (
     <CardWrapper>
+      <PokemonSearch
+        type="text"
+        placeholder="Search..."
+        onChange={(e) => searchPokemon(e.target.value)}
+      />
       {characters.map((character) => (
         <Card>
           <h2>
@@ -56,7 +73,7 @@ export default function PokemonContainer({ characters, onToggle, loadInfo }) {
                   {character.name.charAt(0).toUpperCase() +
                     character.name.slice(1)}
                 </h4>
-                Description:{loadInfo(character.id)}
+                Description:
               </ModalDescription>
             </Description>
           </Modal>
@@ -75,9 +92,10 @@ PokemonContainer.propTypes = {
 const CardWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
+  gap: 2rem;
   justify-content: center;
   margin: 0 1rem;
-  gap: 2rem;
+  padding-bottom: 1rem;
 `;
 
 const Card = styled.article`
@@ -145,4 +163,8 @@ const CloseButton = styled.button`
 
 const ModalDescription = styled.p`
   padding-top: 1rem;
+`;
+
+const PokemonSearch = styled.input`
+  padding: 0.3rem;
 `;

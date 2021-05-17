@@ -26,11 +26,11 @@ function App() {
       );
   }, []);
 
-  function fetchTypeInfo(id) {
+  /*   function fetchTypeInfo(id) {
     fetch(`https://pokeapi.co/api/v2/pokemon-species/${id}`)
       .then((result) => result.json())
       .then((data) => setTypeInfo(data.flavor_text_entries[0].flavor_text));
-  }
+  } */
 
   //Dafür da
   useEffect(() => {
@@ -64,8 +64,9 @@ function App() {
           <PokemonContainer
             characters={pokemon}
             onToggle={toggleFavorite}
-            loadInfo={fetchTypeInfo}
+            //loadInfo={fetchTypeInfo}
             changePage={setActivePage}
+            setCharacters={setPokemon}
           />
         );
       case 'Favorite':
@@ -73,8 +74,9 @@ function App() {
           <PokemonContainer
             characters={likedPokemon}
             onToggle={toggleFavorite}
-            loadInfo={fetchTypeInfo}
+            //loadInfo={fetchTypeInfo}
             changePage={setActivePage}
+            setCharacters={setPokemon}
           />
         );
 
@@ -102,6 +104,5 @@ const Headline = styled.h1`
 
 const MainContainer = styled.div`
   text-align: center;
-  background-color: #f6eec5;
   margin: 0;
 `;
