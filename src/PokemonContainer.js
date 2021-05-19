@@ -32,11 +32,7 @@ export default function PokemonContainer({ allPokemon, toggleFavorite }) {
   }
 
   function listOnView() {
-    if (view === 'all') {
-      return drawList(allPokemon);
-    } else {
-      return drawList(filteredCharacters);
-    }
+    return view === 'all' ? drawList(allPokemon) : drawList(filteredCharacters);
   }
 
   return (
