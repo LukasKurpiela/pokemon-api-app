@@ -1,22 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components/macro';
 import PokemonContainer from './PokemonContainer';
+import PokeCard from './PokeCard';
 import Navigation from './Navigation';
 import Home from './Home';
 
 function App() {
-  const [pokemon, setPokemon] = useState([]);
+  const [allPokemon, setAllPokemon] = useState([]);
   const [activePage, setActivePage] = useState('Home');
   const [likedPokemon, setLikedPokemon] = useState([]);
-  const [typeInfo, setTypeInfo] = useState([]);
-
-  /* const Home = () => <h1>Home</h1>; */
+  //const [typeInfo, setTypeInfo] = useState([]);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
 
   useEffect(() => {
     fetch('https://pokeapi.co/api/v2/pokemon?limit=151')
       .then((result) => result.json())
       .then((data) =>
-        setPokemon(
+        setAllPokemon(
           data.results.map((item, index) => {
             item.isFavorite = false;
             item.id = index + 1;
@@ -32,10 +32,9 @@ function App() {
       .then((data) => setTypeInfo(data.flavor_text_entries[0].flavor_text));
   } */
 
-  //Dafür da
   useEffect(() => {
-    loadFavoritePokemon(pokemon, setLikedPokemon);
-  }, [pokemon]);
+    loadFavoritePokemon(allPokemon, setLikedPokemon);
+  }, [allPokemon]);
 
   // function ( curryWurst und Super curryWurst)
   function loadFavoritePokemon(characters, setFavoriteCharacters) {
@@ -46,13 +45,17 @@ function App() {
   }
 
   function toggleFavorite(itemToToggle) {
-    const updatedPokemonList = pokemon.map((curryPokemon) => {
+    const updatedPokemonList = allPokemon.map((curryPokemon) => {
       if (curryPokemon.id === itemToToggle.id) {
         curryPokemon.isFavorite = !curryPokemon.isFavorite;
       }
       return curryPokemon;
     });
-    setPokemon(updatedPokemonList);
+    setAllPokemon(updatedPokemonList);
+  }
+
+  function toggleModal() {
+    setModalIsOpen(!modalIsOpen);
   }
 
   function drawComponent() {
@@ -62,22 +65,21 @@ function App() {
       case 'PokemonContainer':
         return (
           <PokemonContainer
-            characters={pokemon}
-            onToggle={toggleFavorite}
-            //loadInfo={fetchTypeInfo}
-            changePage={setActivePage}
-            setCharacters={setPokemon}
+            allPokemon={allPokemon}
+            toggleFavorite={toggleFavorite}
           />
         );
       case 'Favorite':
         return (
-          <PokemonContainer
-            characters={likedPokemon}
-            onToggle={toggleFavorite}
-            //loadInfo={fetchTypeInfo}
-            changePage={setActivePage}
-            setCharacters={setPokemon}
-          />
+          <CardWrapper>
+            {likedPokemon.map((pokemon) => (
+              <PokeCard
+                character={pokemon}
+                onToggle={toggleFavorite}
+                toggleModal={toggleModal}
+              />
+            ))}
+          </CardWrapper>
         );
 
       default:
@@ -105,4 +107,13 @@ const Headline = styled.h1`
 const MainContainer = styled.div`
   text-align: center;
   margin: 0;
+`;
+
+export const CardWrapper = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: center;
+  margin: 0 1rem;
+  padding-bottom: 1rem;
 `;
