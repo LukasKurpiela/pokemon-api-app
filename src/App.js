@@ -6,10 +6,13 @@ import Navigation from './components/Navigation';
 import Home from './pages/Home';
 import { Switch, Route } from 'react-router-dom';
 import Favorites from './pages/Favorites';
+import { saveToLocal, loadFromLocal } from './lib/localStorage';
 
 function App() {
   const [allPokemon, setAllPokemon] = useState([]);
-  const [likedPokemon, setLikedPokemon] = useState([]);
+  const [likedPokemon, setLikedPokemon] = useState(
+    loadFromLocal('favoritePokemon') ?? []
+  );
   //const [typeInfo, setTypeInfo] = useState([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
@@ -29,13 +32,17 @@ function App() {
 
   /*   function fetchTypeInfo(id) {
     fetch(`https://pokeapi.co/api/v2/pokemon-species/${id}`)
-      .then((result) => result.json())
-      .then((data) => setTypeInfo(data.flavor_text_entries[0].flavor_text));
+    .then((result) => result.json())
+    .then((data) => setTypeInfo(data.flavor_text_entries[0].flavor_text));
   } */
 
+  // useEffect(() => {
+  //   loadFavoritePokemon(allPokemon, setLikedPokemon);
+  // }, [allPokemon]);
+
   useEffect(() => {
-    loadFavoritePokemon(allPokemon, setLikedPokemon);
-  }, [allPokemon]);
+    saveToLocal('favoritePokemon', likedPokemon);
+  }, [likedPokemon]);
 
   // function ( curryWurst und Super curryWurst)
   function loadFavoritePokemon(characters, setFavoriteCharacters) {
@@ -53,6 +60,7 @@ function App() {
       return curryPokemon;
     });
     setAllPokemon(updatedPokemonList);
+    loadFavoritePokemon(allPokemon, setLikedPokemon);
   }
 
   function toggleModal() {

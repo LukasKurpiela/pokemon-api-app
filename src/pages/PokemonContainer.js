@@ -1,20 +1,12 @@
-import styled from 'styled-components/macro';
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { CardWrapper } from '../pages/Favorites';
 import PokeCard from '../components/PokeCard';
+import SearchBar from '../components/SearchBar';
 
 export default function PokemonContainer({ allPokemon, toggleFavorite }) {
   const [filteredCharacters, setFilteredCharacters] = useState([]);
   const [view, setView] = useState('all');
-
-  function searchPokemon(event) {
-    const filtered = allPokemon.filter((character) =>
-      character.name.includes(event.target.value.toLowerCase())
-    );
-    setFilteredCharacters(filtered);
-    setView('filteredList');
-  }
 
   function drawList(charArr) {
     return (
@@ -36,10 +28,10 @@ export default function PokemonContainer({ allPokemon, toggleFavorite }) {
 
   return (
     <div>
-      <PokemonSearch
-        type="text"
-        placeholder="Search..."
-        onChange={searchPokemon}
+      <SearchBar
+        allPokemon={allPokemon}
+        setFilteredCharacters={setFilteredCharacters}
+        setView={setView}
       />
       {listOnView('all')}
     </div>
@@ -51,8 +43,3 @@ PokemonContainer.propTypes = {
   onToggle: PropTypes.func,
   loadInfo: PropTypes.func,
 };
-
-const PokemonSearch = styled.input`
-  margin: 0 1rem 1rem;
-  padding: 0.3rem;
-`;
