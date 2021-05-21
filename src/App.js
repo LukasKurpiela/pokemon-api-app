@@ -13,7 +13,7 @@ function App() {
     loadFromLocal('favoritePokemon') ?? []
   );
   //const [typeInfo, setTypeInfo] = useState([]);
-  const [modalIsOpen, setModalIsOpen] = useState(false);
+  // const [modalIsOpen, setModalIsOpen] = useState(false);
 
   useEffect(() => {
     fetch('https://pokeapi.co/api/v2/pokemon?limit=151')
