@@ -11,7 +11,7 @@ export default function PokemonContainer({ allPokemon, toggleFavorite }) {
 
   function searchPokemon(event) {
     const filtered = allPokemon.filter((character) =>
-      character.name.includes(event.target.value)
+      character.name.includes(event.target.value.toLowerCase())
     );
     setFilteredCharacters(filtered);
     setView('filteredList');
