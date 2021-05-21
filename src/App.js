@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components/macro';
 import PokemonContainer from './pages/PokemonContainer';
-import PokeCard from './components/PokeCard';
 import Navigation from './components/Navigation';
 import Home from './pages/Home';
 import { Switch, Route } from 'react-router-dom';
@@ -63,9 +62,9 @@ function App() {
     loadFavoritePokemon(allPokemon, setLikedPokemon);
   }
 
-  function toggleModal() {
-    setModalIsOpen(!modalIsOpen);
-  }
+  // function toggleModal() {
+  //   setModalIsOpen(!modalIsOpen);
+  // }
 
   return (
     <div>

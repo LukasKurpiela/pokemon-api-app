@@ -74,19 +74,19 @@ const LikeButton = styled.button`
   padding-top: 0.3rem;
 `;
 
-const InfoButton = styled.button`
-  background-color: lightgrey;
-  border: lightgrey solid 1px;
-  border-radius: 50%;
-  box-shadow: 2px 2px 3px grey;
-  height: 1.5rem;
-  padding: 0 0.3rem;
+// const InfoButton = styled.button`
+//   background-color: lightgrey;
+//   border: lightgrey solid 1px;
+//   border-radius: 50%;
+//   box-shadow: 2px 2px 3px grey;
+//   height: 1.5rem;
+//   padding: 0 0.3rem;
 
-  position: absolute;
-  bottom: 0.5rem;
-  right: 0.4rem;
-  cursor: pointer;
-`;
+//   position: absolute;
+//   bottom: 0.5rem;
+//   right: 0.4rem;
+//   cursor: pointer;
+// `;
 
 const PokeImage = styled.img`
   transition: transform 0.4s ease-out;
