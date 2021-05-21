@@ -1,10 +1,10 @@
 import styled from 'styled-components/macro';
-import Eich from './image/eich.png';
-import Kanto from './image/kanto.jpg';
-import Johto from './image/johto.jpg';
-import Hoenn from './image/hoenn.png';
-import Sinnoh from './image/sinnoh.png';
-import Pikachu from './image/pikachu.gif';
+import Eich from '../image/eich.png';
+import Kanto from '../image/kanto.jpg';
+import Johto from '../image/johto.jpg';
+import Hoenn from '../image/hoenn.png';
+import Sinnoh from '../image/sinnoh.png';
+import Pikachu from '../image/pikachu.gif';
 
 export default function Home() {
   return (

@@ -18,7 +18,8 @@ export default function PokeCard({ character, onToggle, toggleModal }) {
       <LikeButton onClick={() => onToggle(character)}>
         {character.isFavorite ? 'Free again 🥲' : 'I like!😍'}
       </LikeButton>
-      <InfoButton onClick={toggleModal}>i</InfoButton>
+      {/* <InfoButton onClick={toggleModal}>i</InfoButton> */}
+
       {/*       <Modal
         isOpen={modalIsOpen}
         style={{

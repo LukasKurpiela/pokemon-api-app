@@ -1,9 +1,8 @@
 import styled from 'styled-components/macro';
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-
-import { CardWrapper } from './App';
-import PokeCard from './PokeCard';
+import { CardWrapper } from '../pages/Favorites';
+import PokeCard from '../components/PokeCard';
 
 export default function PokemonContainer({ allPokemon, toggleFavorite }) {
   const [filteredCharacters, setFilteredCharacters] = useState([]);

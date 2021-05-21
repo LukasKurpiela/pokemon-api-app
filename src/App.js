@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components/macro';
-import PokemonContainer from './PokemonContainer';
-import PokeCard from './PokeCard';
-import Navigation from './Navigation';
-import Home from './Home';
+import PokemonContainer from './pages/PokemonContainer';
+import PokeCard from './components/PokeCard';
+import Navigation from './components/Navigation';
+import Home from './pages/Home';
+import { Switch, Route } from 'react-router-dom';
+import Favorites from './pages/Favorites';
 
 function App() {
   const [allPokemon, setAllPokemon] = useState([]);
-  const [activePage, setActivePage] = useState('Home');
   const [likedPokemon, setLikedPokemon] = useState([]);
   //const [typeInfo, setTypeInfo] = useState([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -58,47 +59,37 @@ function App() {
     setModalIsOpen(!modalIsOpen);
   }
 
-  function drawComponent() {
-    switch (activePage) {
-      case 'Home':
-        return <Home />;
-      case 'PokemonContainer':
-        return (
-          <PokemonContainer
-            allPokemon={allPokemon}
-            toggleFavorite={toggleFavorite}
-          />
-        );
-      case 'Favorite':
-        return (
-          <CardWrapper>
-            {likedPokemon.map((pokemon) => (
-              <PokeCard
-                character={pokemon}
-                onToggle={toggleFavorite}
-                toggleModal={toggleModal}
-              />
-            ))}
-          </CardWrapper>
-        );
-
-      default:
-        return <Home />;
-    }
-  }
-
   return (
-    <MainContainer>
+    <div>
       <Headline>Pokemon World</Headline>
-      <Navigation onChangeToPage={setActivePage} />
-      <section>{drawComponent()}</section>
-    </MainContainer>
+      <Navigation />
+      <MainContainer>
+        <Switch>
+          <Route exact path="/">
+            <Home />
+          </Route>
+          <Route path="/pokemon">
+            <PokemonContainer
+              allPokemon={allPokemon}
+              toggleFavorite={toggleFavorite}
+            />
+          </Route>
+          <Route path="/favorites">
+            <Favorites
+              likedPokemon={likedPokemon}
+              toggleFavorite={toggleFavorite}
+            />
+          </Route>
+        </Switch>
+      </MainContainer>
+    </div>
   );
 }
 
 export default App;
 
 const Headline = styled.h1`
+  text-align: center;
   color: yellow;
   padding: 1.5rem;
   text-shadow: 0 0 0.7rem #00f, 0 0 0.7rem #00f;
@@ -107,13 +98,4 @@ const Headline = styled.h1`
 const MainContainer = styled.div`
   text-align: center;
   margin: 0;
-`;
-
-export const CardWrapper = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 2rem;
-  justify-content: center;
-  margin: 0 1rem;
-  padding-bottom: 1rem;
 `;

@@ -1,21 +1,19 @@
 import styled from 'styled-components/macro';
 import PropTypes from 'prop-types';
+import { NavLink } from 'react-router-dom';
 
-export default function Navigation({ onChangeToPage }) {
+export default function Navigation() {
   return (
     <ButtonWrapper>
-      <button className="navButton" onClick={() => onChangeToPage('Home')}>
+      <NavLink exact to="/" className="navButton">
         Home
-      </button>
-      <button
-        className="navButton"
-        onClick={() => onChangeToPage('PokemonContainer')}
-      >
+      </NavLink>
+      <NavLink to="/pokemon" className="navButton">
         Pokemon
-      </button>
-      <button className="navButton" onClick={() => onChangeToPage('Favorite')}>
+      </NavLink>
+      <NavLink to="/favorites" className="navButton">
         Favorites
-      </button>
+      </NavLink>
     </ButtonWrapper>
   );
 }
@@ -33,5 +31,7 @@ const ButtonWrapper = styled.div`
     background-color: lightgrey;
     margin: 0 0.6rem;
     padding: 0.4rem;
+    color: black;
+    text-decoration: none;
   }
 `;
