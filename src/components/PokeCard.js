@@ -1,6 +1,4 @@
 import styled from 'styled-components/macro';
-import { useState } from 'react';
-import Modal from 'react-modal';
 
 export default function PokeCard({ character, onToggle, toggleModal }) {
   function getPictures(curryId) {
@@ -97,27 +95,27 @@ const PokeImage = styled.img`
   }
 `;
 
-const Description = styled.div`
-  background: white;
-  padding: 1rem;
-  max-width: 400px;
-  min-height: 200px;
-`;
+// const Description = styled.div`
+//   background: white;
+//   padding: 1rem;
+//   max-width: 400px;
+//   min-height: 200px;
+// `;
 
-const CloseButton = styled.button`
-  background-color: lightgrey;
-  border: lightgrey solid 1px;
-  border-radius: 50%;
-  box-shadow: 2px 2px 3px grey;
-  height: 1.5rem;
-  padding: 0 0.3rem;
+// const CloseButton = styled.button`
+//   background-color: lightgrey;
+//   border: lightgrey solid 1px;
+//   border-radius: 50%;
+//   box-shadow: 2px 2px 3px grey;
+//   height: 1.5rem;
+//   padding: 0 0.3rem;
 
-  position: absolute;
-  right: 0.4rem;
-  top: 0.5rem;
-  cursor: pointer;
-`;
+//   position: absolute;
+//   right: 0.4rem;
+//   top: 0.5rem;
+//   cursor: pointer;
+// `;
 
-const ModalDescription = styled.p`
-  padding-top: 1rem;
-`;
+// const ModalDescription = styled.p`
+//   padding-top: 1rem;
+// `;
