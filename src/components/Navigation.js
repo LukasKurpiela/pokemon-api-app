@@ -33,6 +33,7 @@ const ButtonWrapper = styled.div`
     background-color: lightgrey;
     margin: 0 0.6rem;
     padding: 0.4rem;
+    border: outset darkgrey;
     color: black;
     text-decoration: none;
   }
