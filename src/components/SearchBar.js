@@ -7,8 +7,10 @@ export default function SearchBar({
   setView,
 }) {
   function searchPokemon(event) {
-    const filtered = allPokemon.filter((character) =>
-      character.name.includes(event.target.value.toLowerCase())
+    const filtered = allPokemon.filter(
+      (character) =>
+        character.name.includes(event.target.value.toLowerCase()) ||
+        character.id.toString().startsWith(event.target.value)
     );
     setFilteredCharacters(filtered);
     setView('filteredList');
