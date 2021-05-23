@@ -55,7 +55,7 @@ function App() {
       `https://pokeapi.co/api/v2/pokemon-species/${pokemonId}`
     );
     const data = await response.json();
-    return data.flavor_text_entries[0].flavor_text;
+    return data.flavor_text_entries[1].flavor_text;
   }
 
   async function getType(pokemonUrl) {
@@ -154,10 +154,14 @@ const Headline = styled.h1`
 const MainContainer = styled.div`
   text-align: center;
   margin: 0;
+  margin-bottom: 0.5rem;
 `;
 
 const Footer = styled.footer`
   font-size: 0.6rem;
-  margin-bottom: 0.5rem;
+  padding: 0.5rem 0;
   margin-left: 0.3rem;
+  width: 100%;
+  bottom: 0;
+  background-color: #f6eec5;
 `;

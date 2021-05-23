@@ -16,10 +16,10 @@ export default function Home() {
           <EichImage src={Eich} alt="Pic of Prof. Eich"></EichImage>
         </EichWrapper>
         <IntroText>
-          Hello there! Welcome to the world of pokémon! My name is Prof. Eich!
-          People call me the pokémon Prof! This world is inhabited by creatures
-          called pokémon! For some people, pokémon are pets. Others use them for
-          fights. Myself...I study pokémon as a profession.
+          Hello there! Welcome to the world of Pokémon! My name is Prof. Eich!
+          People call me the Pokémon Prof! This world is inhabited by creatures
+          called pokémon! For some people, Pokémon are pets. Others use them for
+          fights. Myself...I study Pokémon as a profession.
         </IntroText>
       </article>
 
