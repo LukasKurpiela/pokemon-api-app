@@ -106,7 +106,7 @@ function App() {
   }
 
   return (
-    <div>
+    <BodyWrapper>
       <Headline>Pokemon World</Headline>
       <Navigation />
       <MainContainer>
@@ -137,11 +137,16 @@ function App() {
         </Switch>
       </MainContainer>
       <Footer>© 2021 Bejan, Helena, Lukas, Sharine</Footer>
-    </div>
+    </BodyWrapper>
   );
 }
 
 export default App;
+
+const BodyWrapper = styled.div`
+  position: relative;
+  min-height: 100vh;
+`;
 
 const Headline = styled.h1`
   text-align: center;
@@ -162,6 +167,7 @@ const Footer = styled.footer`
   padding: 0.5rem 0;
   margin-left: 0.3rem;
   width: 100%;
+  position: absolute;
   bottom: 0;
   background-color: #f6eec5;
 `;
