@@ -159,7 +159,7 @@ const Headline = styled.h1`
 const MainContainer = styled.div`
   text-align: center;
   margin: 0;
-  margin-bottom: 0.5rem;
+  padding-bottom: 1.5rem;
 `;
 
 const Footer = styled.footer`
