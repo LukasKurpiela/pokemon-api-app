@@ -8,7 +8,9 @@ import Favorites from './pages/Favorites';
 import { saveToLocal, loadFromLocal } from './lib/localStorage';
 
 function App() {
-  const [allPokemon, setAllPokemon] = useState([]);
+  const [allPokemon, setAllPokemon] = useState(
+    loadFromLocal('All Pokemon') ?? []
+  );
   const [likedPokemon, setLikedPokemon] = useState(
     loadFromLocal('favoritePokemon') ?? []
   );
@@ -21,7 +23,7 @@ function App() {
 
   useEffect(() => {
     initialPokemon();
-  });
+  }, []);
 
   async function initialPokemon() {
     const pokemon = await fetchPokemon();
@@ -46,7 +48,7 @@ function App() {
   }
 
   async function fetchPokemon() {
-    const response = await fetch('https://pokeapi.co/api/v2/pokemon?limit=151');
+    const response = await fetch('https://pokeapi.co/api/v2/pokemon');
     const data = await response.json();
     return data.results;
   }
@@ -66,8 +68,16 @@ function App() {
   }
 
   useEffect(() => {
+    saveToLocal('All Pokemon', allPokemon);
+  }, [allPokemon]);
+
+  useEffect(() => {
     saveToLocal('favoritePokemon', likedPokemon);
   }, [likedPokemon]);
+
+  useEffect(() => {
+    loadFavoritePokemon(allPokemon, setLikedPokemon);
+  }, [allPokemon]);
 
   // function ( curryWurst und Super curryWurst)
   function loadFavoritePokemon(characters, setFavoriteCharacters) {
@@ -85,7 +95,7 @@ function App() {
       return curryPokemon;
     });
     setAllPokemon(updatedPokemonList);
-    loadFavoritePokemon(allPokemon, setLikedPokemon);
+    //loadFavoritePokemon(allPokemon, setLikedPokemon);
   }
 
   function showCharDetails(character) {
@@ -139,6 +149,7 @@ const Headline = styled.h1`
   color: yellow;
   padding: 1.5rem;
   text-shadow: 0 0 0.7rem #00f, 0 0 0.7rem #00f;
+  line-height: 1.4;
 `;
 
 const MainContainer = styled.div`
