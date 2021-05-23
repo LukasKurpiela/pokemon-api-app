@@ -21,11 +21,8 @@ function App() {
   });
   //detailedChar braucht IRGENDEINEN Startwert, damit InfoModal IRGENDWAS machen kann. ansonsten ist detailedChar undefined und InfoModal hat keinen Input
 
-  useEffect(() => {
-    initialPokemon();
-  }, []);
-
-  async function initialPokemon() {
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(async () => {
     const pokemon = await fetchPokemon();
     const additionalInfoPokemon = await Promise.all(
       pokemon.map(async (pokemon, index) => {
@@ -35,7 +32,7 @@ function App() {
           index + 1
         }.png`;
         return {
-          name: pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1),
+          name: pokemon.name,
           isFavorite: false,
           id: index + 1,
           type: type.charAt(0).toUpperCase() + type.slice(1),
@@ -45,10 +42,10 @@ function App() {
       })
     );
     setAllPokemon(additionalInfoPokemon);
-  }
+  }, []);
 
   async function fetchPokemon() {
-    const response = await fetch('https://pokeapi.co/api/v2/pokemon');
+    const response = await fetch('https://pokeapi.co/api/v2/pokemon?limit=151');
     const data = await response.json();
     return data.results;
   }
@@ -69,15 +66,16 @@ function App() {
 
   useEffect(() => {
     saveToLocal('All Pokemon', allPokemon);
-  }, [allPokemon]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     saveToLocal('favoritePokemon', likedPokemon);
   }, [likedPokemon]);
 
-  useEffect(() => {
+  /*   useEffect(() => {
     loadFavoritePokemon(allPokemon, setLikedPokemon);
-  }, [allPokemon]);
+  }, [allPokemon]); */
 
   // function ( curryWurst und Super curryWurst)
   function loadFavoritePokemon(characters, setFavoriteCharacters) {
@@ -95,7 +93,7 @@ function App() {
       return curryPokemon;
     });
     setAllPokemon(updatedPokemonList);
-    //loadFavoritePokemon(allPokemon, setLikedPokemon);
+    loadFavoritePokemon(allPokemon, setLikedPokemon);
   }
 
   function showCharDetails(character) {
