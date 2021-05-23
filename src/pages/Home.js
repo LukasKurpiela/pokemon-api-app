@@ -24,10 +24,22 @@ export default function Home() {
       </article>
 
       <MapImageWrapper>
-        <MapImage src={Kanto} alt="Kanto Map" />
-        <MapImageOpacity src={Johto} alt="Johto Map" />
-        <MapImageOpacity src={Hoenn} alt="Hoenn Map" />
-        <MapImageOpacity src={Sinnoh} alt="Sinnoh Map" />
+        <p>
+          Kanto Region
+          <MapImage src={Kanto} alt="Kanto Map" />
+        </p>
+        <p>
+          Johto Region
+          <MapImageOpacity src={Johto} alt="Johto Map" height="172px" />
+        </p>
+        <p>
+          Hoenn Region
+          <MapImageOpacity src={Hoenn} alt="Hoenn Map" />
+        </p>
+        <p>
+          Sinnoh Region
+          <MapImageOpacity src={Sinnoh} alt="Sinnoh Map" />
+        </p>
       </MapImageWrapper>
     </section>
   );
@@ -52,6 +64,11 @@ const MapImageWrapper = styled.article`
   padding: 0 2rem;
   margin-top: 3rem;
   padding-bottom: 2rem;
+
+  p {
+    display: grid;
+    gap: 0.4rem;
+  }
 `;
 
 const PikachuImage = styled.img`

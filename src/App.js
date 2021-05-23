@@ -136,6 +136,7 @@ function App() {
           </Route>
         </Switch>
       </MainContainer>
+      <Footer>© 2021 Bejan, Helena, Lukas, Sharine</Footer>
     </div>
   );
 }
@@ -153,4 +154,10 @@ const Headline = styled.h1`
 const MainContainer = styled.div`
   text-align: center;
   margin: 0;
+`;
+
+const Footer = styled.footer`
+  font-size: 0.6rem;
+  margin-bottom: 0.5rem;
+  margin-left: 0.3rem;
 `;
