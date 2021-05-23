@@ -6,7 +6,6 @@ import Home from './pages/Home';
 import { Switch, Route } from 'react-router-dom';
 import Favorites from './pages/Favorites';
 import { saveToLocal, loadFromLocal } from './lib/localStorage';
-import { func } from 'prop-types';
 
 function App() {
   const [allPokemon, setAllPokemon] = useState([]);
@@ -22,7 +21,7 @@ function App() {
 
   useEffect(() => {
     initialPokemon();
-  }, []);
+  });
 
   async function initialPokemon() {
     const pokemon = await fetchPokemon();

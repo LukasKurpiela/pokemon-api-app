@@ -12,6 +12,9 @@ export default function InfoModal({ modalIsOpen, hideModal, character }) {
           position: 'fixed',
           width: '100vw',
           height: '100vh',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
         },
         // display: 'block',
         content: {
@@ -20,10 +23,10 @@ export default function InfoModal({ modalIsOpen, hideModal, character }) {
           alignItems: 'center',
           left: '50%',
           top: '20%',
-          bottom: '50%',
           marginLeft: '-200px',
           borderRadius: '1rem',
-          width: '400px',
+          width: '80vw',
+          maxWidth: '400px',
           height: '396px',
         },
       }}

@@ -25,6 +25,7 @@ Navigation.propTypes = {
 const ButtonWrapper = styled.div`
   display: flex;
   justify-content: center;
+  margin: 0 1rem;
   margin-bottom: 2rem;
 
   .navButton {
