@@ -1,54 +1,18 @@
 import styled from 'styled-components/macro';
+import PropTypes from 'prop-types';
 
-export default function PokeCard({ character, onToggle, toggleModal }) {
-  function getPictures(curryId) {
-    const link = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${curryId}.png`;
-    return link;
-  }
-
+export default function PokeCard({ character, onToggle, showDetails }) {
   return (
     <Card>
       <h2>
         #{character.id}{' '}
         {character.name.charAt(0).toUpperCase() + character.name.slice(1)}
       </h2>
-      <PokeImage src={getPictures(character.id)} />
+      <PokeImage src={character.image} />
       <LikeButton onClick={() => onToggle(character)}>
         {character.isFavorite ? 'Free again 🥲' : 'I like!😍'}
       </LikeButton>
-      {/* <InfoButton onClick={toggleModal}>i</InfoButton> */}
-
-      {/*       <Modal
-        isOpen={modalIsOpen}
-        style={{
-          overlay: {
-            backgroundColor: 'transparent',
-            position: 'fixed',
-            left: '50%',
-            top: '20%',
-            bottom: '50%',
-            marginLeft: '-250px',
-            width: '500px',
-          },
-          // display: 'block',
-          content: {
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-          },
-        }}
-      >
-        <Description>
-          <CloseButton onClick={toggleModal}>x</CloseButton>
-          <ModalDescription>
-            <h4>
-              #{character.id}{' '}
-              {character.name.charAt(0).toUpperCase() + character.name.slice(1)}
-            </h4>
-            Description:
-          </ModalDescription>
-        </Description>
-      </Modal> */}
+      <InfoButton onClick={() => showDetails(character)}>i</InfoButton>
     </Card>
   );
 }
@@ -74,19 +38,19 @@ const LikeButton = styled.button`
   padding-top: 0.3rem;
 `;
 
-// const InfoButton = styled.button`
-//   background-color: lightgrey;
-//   border: lightgrey solid 1px;
-//   border-radius: 50%;
-//   box-shadow: 2px 2px 3px grey;
-//   height: 1.5rem;
-//   padding: 0 0.3rem;
+const InfoButton = styled.button`
+  background-color: lightgrey;
+  border: lightgrey solid 1px;
+  border-radius: 50%;
+  box-shadow: 2px 2px 3px grey;
+  height: 1.5rem;
+  padding: 0 0.3rem;
 
-//   position: absolute;
-//   bottom: 0.5rem;
-//   right: 0.4rem;
-//   cursor: pointer;
-// `;
+  position: absolute;
+  bottom: 0.5rem;
+  right: 0.4rem;
+  cursor: pointer;
+`;
 
 const PokeImage = styled.img`
   transition: transform 0.4s ease-out;
@@ -95,27 +59,8 @@ const PokeImage = styled.img`
   }
 `;
 
-// const Description = styled.div`
-//   background: white;
-//   padding: 1rem;
-//   max-width: 400px;
-//   min-height: 200px;
-// `;
-
-// const CloseButton = styled.button`
-//   background-color: lightgrey;
-//   border: lightgrey solid 1px;
-//   border-radius: 50%;
-//   box-shadow: 2px 2px 3px grey;
-//   height: 1.5rem;
-//   padding: 0 0.3rem;
-
-//   position: absolute;
-//   right: 0.4rem;
-//   top: 0.5rem;
-//   cursor: pointer;
-// `;
-
-// const ModalDescription = styled.p`
-//   padding-top: 1rem;
-// `;
+PokeCard.propTypes = {
+  character: PropTypes.object,
+  onToggle: PropTypes.func,
+  showDetails: PropTypes.func,
+};

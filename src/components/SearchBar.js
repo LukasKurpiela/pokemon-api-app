@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import PropTypes, { object } from 'prop-types';
 
 export default function SearchBar({
   allPokemon,
@@ -26,3 +27,9 @@ const PokemonSearch = styled.input`
   margin: 0 1rem 1rem;
   padding: 0.3rem;
 `;
+
+SearchBar.propTypes = {
+  allPokemon: PropTypes.arrayOf(object),
+  setFilteredCharacters: PropTypes.func,
+  setView: PropTypes.func,
+};

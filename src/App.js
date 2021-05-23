@@ -6,38 +6,65 @@ import Home from './pages/Home';
 import { Switch, Route } from 'react-router-dom';
 import Favorites from './pages/Favorites';
 import { saveToLocal, loadFromLocal } from './lib/localStorage';
+import { func } from 'prop-types';
 
 function App() {
   const [allPokemon, setAllPokemon] = useState([]);
   const [likedPokemon, setLikedPokemon] = useState(
     loadFromLocal('favoritePokemon') ?? []
   );
-  //const [typeInfo, setTypeInfo] = useState([]);
-  // const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [detailedChar, setDetailedChar] = useState({
+    name: 'currywurst',
+    id: 1,
+  });
+  //detailedChar braucht IRGENDEINEN Startwert, damit InfoModal IRGENDWAS machen kann. ansonsten ist detailedChar undefined und InfoModal hat keinen Input
 
   useEffect(() => {
-    fetch('https://pokeapi.co/api/v2/pokemon?limit=151')
-      .then((result) => result.json())
-      .then((data) =>
-        setAllPokemon(
-          data.results.map((item, index) => {
-            item.isFavorite = false;
-            item.id = index + 1;
-            return item;
-          })
-        )
-      );
+    initialPokemon();
   }, []);
 
-  /*   function fetchTypeInfo(id) {
-    fetch(`https://pokeapi.co/api/v2/pokemon-species/${id}`)
-    .then((result) => result.json())
-    .then((data) => setTypeInfo(data.flavor_text_entries[0].flavor_text));
-  } */
+  async function initialPokemon() {
+    const pokemon = await fetchPokemon();
+    const additionalInfoPokemon = await Promise.all(
+      pokemon.map(async (pokemon, index) => {
+        const type = await getType(pokemon.url);
+        const description = await getDescription(index + 1);
+        const image = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${
+          index + 1
+        }.png`;
+        return {
+          name: pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1),
+          isFavorite: false,
+          id: index + 1,
+          type: type.charAt(0).toUpperCase() + type.slice(1),
+          description: description,
+          image: image,
+        };
+      })
+    );
+    setAllPokemon(additionalInfoPokemon);
+  }
 
-  // useEffect(() => {
-  //   loadFavoritePokemon(allPokemon, setLikedPokemon);
-  // }, [allPokemon]);
+  async function fetchPokemon() {
+    const response = await fetch('https://pokeapi.co/api/v2/pokemon?limit=151');
+    const data = await response.json();
+    return data.results;
+  }
+
+  async function getDescription(pokemonId) {
+    const response = await fetch(
+      `https://pokeapi.co/api/v2/pokemon-species/${pokemonId}`
+    );
+    const data = await response.json();
+    return data.flavor_text_entries[0].flavor_text;
+  }
+
+  async function getType(pokemonUrl) {
+    const response = await fetch(pokemonUrl);
+    const data = await response.json();
+    return data.types[0].type.name;
+  }
 
   useEffect(() => {
     saveToLocal('favoritePokemon', likedPokemon);
@@ -62,9 +89,14 @@ function App() {
     loadFavoritePokemon(allPokemon, setLikedPokemon);
   }
 
-  // function toggleModal() {
-  //   setModalIsOpen(!modalIsOpen);
-  // }
+  function showCharDetails(character) {
+    setModalIsOpen(true);
+    setDetailedChar(character);
+  }
+
+  function hideModal() {
+    setModalIsOpen(false);
+  }
 
   return (
     <div>
@@ -79,12 +111,20 @@ function App() {
             <PokemonContainer
               allPokemon={allPokemon}
               toggleFavorite={toggleFavorite}
+              modalIsOpen={modalIsOpen}
+              detailedChar={detailedChar}
+              showCharDetails={showCharDetails}
+              hideModal={hideModal}
             />
           </Route>
           <Route path="/favorites">
             <Favorites
               likedPokemon={likedPokemon}
               toggleFavorite={toggleFavorite}
+              modalIsOpen={modalIsOpen}
+              detailedChar={detailedChar}
+              showCharDetails={showCharDetails}
+              hideModal={hideModal}
             />
           </Route>
         </Switch>

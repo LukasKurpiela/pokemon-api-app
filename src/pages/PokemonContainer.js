@@ -3,8 +3,16 @@ import PropTypes from 'prop-types';
 import { CardWrapper } from '../pages/Favorites';
 import PokeCard from '../components/PokeCard';
 import SearchBar from '../components/SearchBar';
+import InfoModal from '../components/InfoModal';
 
-export default function PokemonContainer({ allPokemon, toggleFavorite }) {
+export default function PokemonContainer({
+  allPokemon,
+  toggleFavorite,
+  modalIsOpen,
+  detailedChar,
+  showCharDetails,
+  hideModal,
+}) {
   const [filteredCharacters, setFilteredCharacters] = useState([]);
   const [view, setView] = useState('all');
 
@@ -15,7 +23,7 @@ export default function PokemonContainer({ allPokemon, toggleFavorite }) {
           <PokeCard
             character={pokemon}
             onToggle={toggleFavorite}
-            //toggleModal={toggleModal}
+            showDetails={showCharDetails}
           />
         ))}
       </CardWrapper>
@@ -33,13 +41,21 @@ export default function PokemonContainer({ allPokemon, toggleFavorite }) {
         setFilteredCharacters={setFilteredCharacters}
         setView={setView}
       />
-      {listOnView('all')}
+      <InfoModal
+        modalIsOpen={modalIsOpen}
+        hideModal={hideModal}
+        character={detailedChar}
+      />
+      {listOnView()}
     </div>
   );
 }
 
 PokemonContainer.propTypes = {
-  characters: PropTypes.arrayOf(PropTypes.object),
-  onToggle: PropTypes.func,
-  loadInfo: PropTypes.func,
+  allPokemon: PropTypes.arrayOf(PropTypes.object),
+  toggleFavorite: PropTypes.func,
+  modalIsOpen: PropTypes.bool,
+  detailedChar: PropTypes.object,
+  showCharDetails: PropTypes.func,
+  hideModal: PropTypes.func,
 };
