@@ -66,14 +66,13 @@ function App() {
 
   useEffect(() => {
     saveToLocal('All Pokemon', allPokemon);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [allPokemon]);
 
   useEffect(() => {
     saveToLocal('favoritePokemon', likedPokemon);
   }, [likedPokemon]);
 
-  /*   useEffect(() => {
+  /*  useEffect(() => {
     loadFavoritePokemon(allPokemon, setLikedPokemon);
   }, [allPokemon]); */
 
