@@ -98,4 +98,5 @@ const EichWrapper = styled.div`
 const IntroText = styled.p`
   margin-top: 30rem;
   padding: 0 3rem;
+  line-height: 1.4;
 `;
