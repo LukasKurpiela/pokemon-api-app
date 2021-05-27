@@ -60,6 +60,7 @@ const PokeImage = styled.img`
 `;
 
 PokeCard.propTypes = {
+  /** Character takes an object with properties name, url, ... */
   character: PropTypes.object,
   onToggle: PropTypes.func,
   showDetails: PropTypes.func,
