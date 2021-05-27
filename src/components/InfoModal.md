@@ -1,10 +1,10 @@
 ```jsx
-<button onClick={() => showDetails(character)}>
+<button onClick={() => setModalIsOpen(true)}>
   Show the only one and best Modal ever build!
 </button>
 
-/* <InfoModal
-  modalIsOpen={true}
+<InfoModal
+  modalIsOpen={false}
   character={{
     name: 'Bulbasaur',
     id: 1,
@@ -15,5 +15,5 @@
       'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1',
   }}
   hideModal={() => setModalIsOpen(false)}
-/> */
+/>
 ```
